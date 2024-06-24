@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 fun MyScreen(modifier: Modifier = Modifier.fillMaxSize()){
 
     // State
-    var textInput by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
+    var textInput by remember { mutableStateOf("") }
 
     // UI
     Column(
@@ -30,8 +30,8 @@ fun MyScreen(modifier: Modifier = Modifier.fillMaxSize()){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        
-        Text(text = "Hello, ${username.ifBlank { "World" }}!")
+
+        Text(text = "Hello, ${username}!")
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -42,8 +42,8 @@ fun MyScreen(modifier: Modifier = Modifier.fillMaxSize()){
         OutlinedTextField(
             value = textInput,
 
-            onValueChange = { text ->
-                textInput = text
+            onValueChange = { newText ->
+                textInput = newText
             }
         )
 
@@ -51,11 +51,11 @@ fun MyScreen(modifier: Modifier = Modifier.fillMaxSize()){
 
         Button(
             onClick = {
-                username = textInput
+                username = textInput.ifBlank { "World" }
                 textInput = ""
             }
         ){
-            Text( text = "Set Username" )
+            Text( text = "Submit" )
         }
     }
 
